@@ -1,0 +1,361 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: black;
+    color: white;
+    min-height: 100vh;
+}
+
+.container {
+    display: flex;
+}
+
+/* Side Navigation */
+.side-nav {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 64px;
+    border-right: 1px solid #1f2937;
+    background-color: black;
+    padding: 1rem;
+}
+
+.side-nav .logo {
+    width: 45px;
+    height: 45px;
+    margin-bottom: 1rem;
+}
+
+.side-nav button {
+    background: transparent;
+    border: none;
+    color: #6b7280;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.side-nav button:hover {
+    background-color: #1f2937;
+}
+
+.side-nav button.add-button {
+    background-color: #2563eb;
+    border-radius: 9999px;
+    width: 56px;
+    height: 56px;
+    color: white;
+}
+
+.side-nav button.add-button:hover {
+    background-color: #1d4ed8;
+}
+
+.side-nav .settings {
+    margin-top: auto;
+}
+
+/* Main Content */
+.main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding-bottom: 96px;
+}
+
+/* Header */
+.header {
+    padding: 1rem;
+    border-bottom: 1px solid #1f2937;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.header-left img {
+    width: 45px;
+    height: 45px;
+}
+
+.header-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.header-date {
+    font-size: 0.875rem;
+    color: #9ca3af;
+}
+
+/* Input Section */
+.input-section {
+    padding: 1rem;
+    border-bottom: 1px solid #1f2937;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.url-input {
+    background-color: transparent;
+    border: none;
+    color: #d1d5db;
+    font-size: 1rem;
+    padding: 0.5rem 0;
+    width: 100%;
+}
+
+.url-input::placeholder {
+    color: #4b5563;
+}
+
+.url-input:focus {
+    outline: none;
+}
+
+#searchNoteInput {
+    display: none;
+}
+
+.search-input {
+    background-color: transparent;
+    border: none;
+    color: #d1d5db;
+    font-size: 1rem;
+    padding: 0.5rem 0;
+    width: 100%;
+}
+
+.search-input::placeholder {
+    color: #4b5563;
+}
+
+.search-input:focus {
+    outline: none;
+}
+
+.input-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.action-button {
+    background: transparent;
+    border: none;
+    color: #6b7280;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.action-button:hover {
+    background-color: #1f2937;
+}
+
+.add-button {
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    cursor: pointer;
+}
+
+.add-button:hover {
+    background-color: #1d4ed8;
+}
+
+/* Note List */
+.calendar {
+    display: none;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #1f2937;
+}
+
+.calendar-header button {
+    background: transparent;
+    border: none;
+    color: #6b7280;
+    cursor: pointer;
+}
+
+.calendar-body {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-gap: 5px;
+    padding: 10px;
+}
+
+.calendar-day {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    background-color: black;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.calendar-day:hover {
+    background-color: #1f2937;
+}
+
+.day-notes {
+    margin-top: 5px;
+    font-size: 12px;
+}
+
+
+.note-list {
+    flex: 1;
+    overflow: auto;
+}
+
+.note-item {
+    padding: 1rem;
+    border-bottom: 1px solid #1f2937;
+}
+
+.note-date {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #9ca3af;
+    font-size: 0.875rem;
+}
+
+.date-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #2563eb;
+    border-radius: 9999px;
+}
+
+.note-content {
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.note-text {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    color: #d1d5db;
+}
+
+.bookmark-icon {
+    color: #2563eb;
+    margin-top: 0.25rem;
+}
+
+/* Bottom Navigation */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-top: 1px solid #1f2937;
+    background-color: black;
+}
+
+.bottom-nav-content {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 1rem;
+}
+
+.nav-button {
+    background: transparent;
+    border: none;
+    color: #6b7280;
+    cursor: pointer;
+}
+
+.nav-button.add {
+    background-color: #2563eb;
+    width: 56px;
+    height: 56px;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+    body {
+        display: flex;
+        justify-content: center;
+    }
+
+    .side-nav {
+        display: flex;
+        position: relative;
+    }
+
+    .main {
+        width: 450px;
+        padding-bottom: 0;
+        border-right: 1px solid #1f2937;
+    }
+
+    .bottom-nav {
+        display: none;
+    }
+
+    .header-content .avatar,
+    .header-left img {
+        display: none;
+    }
+}
