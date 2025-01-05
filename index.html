@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="Wall, is an open-source note manager to organize, discover and personalize your note experience.">
-        <meta property="og:title" content="WALL">
-        <meta property="og:description" content="Wall, is an open-source note manager to organize, discover and personalize your note experience.">
-        <meta property="og:url" content="https://devnar.github.io/wall">
-        <meta property="og:type" content="website">
-        <meta property="og:image" content="https://img.icons8.com/?size=90&id=uIPLqMVLeJCH&format=png">
-        <meta property="og:image:alt" content="WALL Logo">
-        <meta property="og:site_name" content="WALL">
-        <link rel="icon" href="https://img.icons8.com/?size=90&id=uIPLqMVLeJCH&format=png">
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content="Wall, is an open-source note manager to organize, discover and personalize your note experience." />
+        <meta property="og:title" content="WALL" />
+        <meta property="og:description" content="Wall, is an open-source note manager to organize, discover and personalize your note experience." />
+        <meta property="og:url" content="https://devnar.github.io/wall" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://img.icons8.com/?size=90&id=uIPLqMVLeJCH&format=png" />
+        <meta property="og:image:alt" content="WALL Logo" />
+        <meta property="og:site_name" content="WALL" />
+        <link rel="icon" href="https://img.icons8.com/?size=90&id=uIPLqMVLeJCH&format=png" />
         <title>WALL</title>
-        <link rel="stylesheet" href="assets/style.css">
+        <link rel="stylesheet" href="assets/style.css" />
     </head>
     <body>
         <div class="container">
@@ -66,22 +66,13 @@
                                 <p class="header-date">December 27, 2024</p>
                             </div>
                         </div>
-                        <div class="avatar">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2">
-                                <path
-                                    d="M12 21C10.8614 21 9.90491 20.1439 9.77917 19.0122L9.68748 18.187C9.64067 17.7657 9.36528 17.4087 8.99846 17.1964C8.6312 16.9838 8.18728 16.9258 7.79859 17.0961L7.03769 17.4294C5.9948 17.8864 4.77511 17.4861 4.20581 16.5C3.6365 15.5139 3.89967 14.2575 4.81683 13.5828L5.48646 13.0902C5.828 12.8389 6.00004 12.424 6.00004 12C6.00004 11.576 5.828 11.1611 5.48646 10.9098L4.81683 10.4172C3.89967 9.7425 3.63651 8.48606 4.20581 7.5C4.77511 6.51394 5.9948 6.11363 7.03769 6.57056L7.79859 6.90393C8.18728 7.07423 8.6312 7.01621 8.99846 6.80361C9.36528 6.59126 9.64067 6.23429 9.68748 5.81302L9.77917 4.98777C9.90491 3.85613 10.8614 3 12 3C13.1386 3 14.0952 3.85613 14.2209 4.98777L14.3126 5.81302C14.3594 6.23428 14.6348 6.59126 15.0016 6.80361C15.3689 7.0162 15.8128 7.07423 16.2015 6.90393L16.9624 6.57056C18.0053 6.11363 19.225 6.51394 19.7943 7.5C20.3636 8.48606 20.1004 9.7425 19.1832 10.4172L18.5136 10.9098C18.1721 11.1611 18 11.576 18 12C18 12.424 18.1721 12.8389 18.5136 13.0902L19.1832 13.5828C20.1004 14.2575 20.3636 15.5139 19.7943 16.5C19.225 17.4861 18.0053 17.8864 16.9624 17.4294L16.2015 17.0961C15.8128 16.9258 15.3689 16.9838 15.0016 17.1964C14.6348 17.4087 14.3594 17.7657 14.3126 18.187L14.2209 19.0122C14.0952 20.1439 13.1386 21 12 21Z"
-                                    stroke-linejoin="round"
-                                />
-                                <path d="M14 12C14 13.1046 13.1046 14 12 14C10.8954 14 10 13.1046 10 12C10 10.8954 10.8954 10 12 10C13.1046 10 14 10.8954 14 12Z" />
-                            </svg>
-                        </div>
                     </div>
                 </header>
 
                 <!-- Input Section -->
                 <div class="input-section" id="addNoteInput">
                     <div class="input-container">
-                        <textarea type="text" class="url-input" placeholder="Just paste or type not." ></textarea>
+                        <textarea type="text" class="url-input" placeholder="Just paste or type not."></textarea>
                         <div class="input-actions">
                             <div class="action-buttons">
                                 <button class="action-button" id="export-notes">
@@ -112,7 +103,7 @@
                                 </button>
                                 <button class="action-button" onclick="searchInput(1);renderNotes();document.querySelector('.search-input').value = 'tag:';searchNotes()">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"/>
+                                        <path d="M19 8.94999V15.2C19 16.8802 19 17.7202 18.673 18.362C18.3854 18.9265 17.9265 19.3854 17.362 19.673C16.7202 20 15.8802 20 14.2 20H9.8C8.11984 20 7.27976 20 6.63803 19.673C6.07354 19.3854 5.6146 18.9265 5.32698 18.362C5 17.7202 5 16.8802 5 15.2V8.94999M5.5 9H18.5C19.8807 9 21 7.88071 21 6.5C21 5.11929 19.8807 4 18.5 4H5.5C4.11929 4 3 5.11929 3 6.5C3 7.88071 4.11929 9 5.5 9Z" />
                                     </svg>
                                 </button>
                             </div>
@@ -129,7 +120,7 @@
                     </div>
                     <div class="calendar-body"></div>
                 </div>
-                
+
                 <div class="note-list" id="listView"></div>
 
                 <!-- Bottom Navigation -->
@@ -158,11 +149,13 @@
                                 <path d="M15 7V3" stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
                         </button>
-                        <button onclick="searchInput(1);renderBookmarkedNotes();document.querySelector('.search-input').value = 'bookmarks:'" class="nav-button">
+                        <button class="nav-button">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2">
                                 <path
-                                    d="M13.2 3H10.8C9.11984 3 8.27976 3 7.63803 3.32698C7.07354 3.6146 6.6146 4.07354 6.32698 4.63803C6 5.27976 6 6.11984 6 7.8V17.8C6 18.8299 6 19.3449 6.21264 19.6165C6.39769 19.8528 6.67912 19.9935 6.97921 19.9998C7.32406 20.007 7.73604 19.698 8.56 19.08L9.12 18.66C10.1528 17.8854 10.6692 17.4981 11.2363 17.3488C11.7369 17.2171 12.2631 17.2171 12.7637 17.3488C13.3308 17.4981 13.8472 17.8854 14.88 18.66L15.44 19.08C16.264 19.698 16.6759 20.007 17.0208 19.9998C17.3209 19.9935 17.6023 19.8528 17.7874 19.6165C18 19.3449 18 18.8299 18 17.8V7.8C18 6.11984 18 5.27976 17.673 4.63803C17.3854 4.07354 16.9265 3.6146 16.362 3.32698C15.7202 3 14.8802 3 13.2 3Z"
+                                    d="M12 21C10.8614 21 9.90491 20.1439 9.77917 19.0122L9.68748 18.187C9.64067 17.7657 9.36528 17.4087 8.99846 17.1964C8.6312 16.9838 8.18728 16.9258 7.79859 17.0961L7.03769 17.4294C5.9948 17.8864 4.77511 17.4861 4.20581 16.5C3.6365 15.5139 3.89967 14.2575 4.81683 13.5828L5.48646 13.0902C5.828 12.8389 6.00004 12.424 6.00004 12C6.00004 11.576 5.828 11.1611 5.48646 10.9098L4.81683 10.4172C3.89967 9.7425 3.63651 8.48606 4.20581 7.5C4.77511 6.51394 5.9948 6.11363 7.03769 6.57056L7.79859 6.90393C8.18728 7.07423 8.6312 7.01621 8.99846 6.80361C9.36528 6.59126 9.64067 6.23429 9.68748 5.81302L9.77917 4.98777C9.90491 3.85613 10.8614 3 12 3C13.1386 3 14.0952 3.85613 14.2209 4.98777L14.3126 5.81302C14.3594 6.23428 14.6348 6.59126 15.0016 6.80361C15.3689 7.0162 15.8128 7.07423 16.2015 6.90393L16.9624 6.57056C18.0053 6.11363 19.225 6.51394 19.7943 7.5C20.3636 8.48606 20.1004 9.7425 19.1832 10.4172L18.5136 10.9098C18.1721 11.1611 18 11.576 18 12C18 12.424 18.1721 12.8389 18.5136 13.0902L19.1832 13.5828C20.1004 14.2575 20.3636 15.5139 19.7943 16.5C19.225 17.4861 18.0053 17.8864 16.9624 17.4294L16.2015 17.0961C15.8128 16.9258 15.3689 16.9838 15.0016 17.1964C14.6348 17.4087 14.3594 17.7657 14.3126 18.187L14.2209 19.0122C14.0952 20.1439 13.1386 21 12 21Z"
+                                    stroke-linejoin="round"
                                 />
+                                <path d="M14 12C14 13.1046 13.1046 14 12 14C10.8954 14 10 13.1046 10 12C10 10.8954 10.8954 10 12 10C13.1046 10 14 10.8954 14 12Z" />
                             </svg>
                         </button>
                     </div>
