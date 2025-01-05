@@ -31,6 +31,19 @@ class NoteManager {
         renderNotes();
     }
 
+    static convertLinks(content) {
+        content = content.replace(/https?:\/\/[^\s]+/g, function(url) {
+            return `<a href="${url}" target="_blank">${url}</a>`;
+        });
+    
+        content = content.replace(/(^|\s)(#\w+)(?=\s|$)/g, function(match, p1, p2) {
+            var a = `searchInput(1);renderNotes();document.querySelector('.search-input').value='tag:${p2.replace("#", "")}';searchNotes();`;
+            return `${p1}<span class="tag" onclick=${a}>${p2}</span>`;
+        });
+    
+        return content;
+    }
+
     static toggleBookmark(index) {
         const notes = this.getNotes();
         if (notes[index]) {
@@ -62,6 +75,25 @@ document.querySelector(".add-button").addEventListener("click", () => {
 function searchNotes() {
     const searchTerm = document.querySelector(".search-input").value.toLowerCase();
     const notes = NoteManager.getNotes();
+
+    if (searchTerm.startsWith("bookmarks:")) {
+        const searchQuery = searchTerm.replace("bookmarks:", "").trim();
+        const filteredBookmarkedNotes = notes.filter((note) =>
+            note.isBookmarked && note.content.toLowerCase().includes(searchQuery)
+        );
+        renderNotesList(filteredBookmarkedNotes);
+        return;
+    }
+
+    if (searchTerm.startsWith("tag:")) {
+        const searchQuery = searchTerm.replace("tag:", "").trim();
+        const filteredBookmarkedNotes = notes.filter((note) =>
+            note.content.toLowerCase().includes("#"+searchQuery)
+        );
+        renderNotesList(filteredBookmarkedNotes);
+        return;
+    }
+
     const filteredNotes = notes.filter((note) =>
         note.content.toLowerCase().includes(searchTerm)
     );
@@ -104,21 +136,28 @@ function renderNotes() {
         noteItem.className = "note-item";
 
         noteItem.innerHTML = `
+      <div class="note-content">
+        <div class="note-text">
+          <span>${NoteManager.convertLinks(note.content)}</span>
+        </div>
+      </div>
       <div class="note-date">
+        <svg class="delete-icon" width="20" height="20" viewBox="0 0 24 24" stroke="#ff0000" stroke-width="2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+        </svg>
         <svg class="bookmark-icon" width="20" height="20" viewBox="0 0 24 24" fill="${note.isBookmarked ? "currentColor" : "none"}" stroke="currentColor" stroke-width="2">
           <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
         </svg>
         <span>${new Date(note.date).toLocaleDateString()}</span>
       </div>
-      <div class="note-content">
-        <div class="note-text">
-          <span>${note.content}</span>
-        </div>
-      </div>
     `;
 
         noteItem.querySelector(".bookmark-icon").addEventListener("click", () => {
             NoteManager.toggleBookmark(index);
+        });
+
+        noteItem.querySelector(".delete-icon").addEventListener("click", () => {
+            NoteManager.deleteNote(index);
         });
 
         noteList.appendChild(noteItem);
@@ -135,26 +174,29 @@ function renderBookmarkedNotes() {
         noteItem.className = "note-item";
 
         noteItem.innerHTML = `
-        <div class="note-date">
-          <svg class="bookmark-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2">
-            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
-          </svg>
-          <span>${new Date(note.date).toLocaleDateString()}</span>
-        </div>
         <div class="note-content">
-          <div class="note-text">
-            <span>${note.content}</span>
-          </div>
+        <div class="note-text">
+          <span>${NoteManager.convertLinks(note.content)}</span>
         </div>
+      </div>
+      <div class="note-date">
+        <svg class="delete-icon" width="20" height="20" viewBox="0 0 24 24" stroke="#ff0000" stroke-width="2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+        </svg>
+        <svg class="bookmark-icon" width="20" height="20" viewBox="0 0 24 24" fill="${note.isBookmarked ? "currentColor" : "none"}" stroke="currentColor" stroke-width="2">
+          <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+        </svg>
+        <span>${new Date(note.date).toLocaleDateString()}</span>
+      </div>
       `;
 
-        noteItem.querySelector(".bookmark-icon").addEventListener("click", () => {
-            const actualIndex = NoteManager.getNotes().findIndex(
-                (n) => n.date === note.date && n.content === note.content
-            );
-            NoteManager.toggleBookmark(actualIndex);
-            renderBookmarkedNotes();
-        });
+      noteItem.querySelector(".bookmark-icon").addEventListener("click", () => {
+        NoteManager.toggleBookmark(index);
+    });
+
+    noteItem.querySelector(".delete-icon").addEventListener("click", () => {
+        NoteManager.deleteNote(index);
+    });
 
         noteList.appendChild(noteItem);
     });
@@ -169,22 +211,29 @@ function renderNotesList(notes) {
         noteItem.className = "note-item";
 
         noteItem.innerHTML = `
+      <div class="note-content">
+        <div class="note-text">
+          <span>${NoteManager.convertLinks(note.content)}</span>
+        </div>
+      </div>
       <div class="note-date">
+        <svg class="delete-icon" width="20" height="20" viewBox="0 0 24 24" stroke="#ff0000" stroke-width="2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+        </svg>
         <svg class="bookmark-icon" width="20" height="20" viewBox="0 0 24 24" fill="${note.isBookmarked ? "currentColor" : "none"}" stroke="currentColor" stroke-width="2">
           <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
         </svg>
         <span>${new Date(note.date).toLocaleDateString()}</span>
       </div>
-      <div class="note-content">
-        <div class="note-text">
-          <span>${note.content}</span>
-        </div>
-      </div>
     `;
 
-        noteItem.querySelector(".bookmark-icon").addEventListener("click", () => {
-            NoteManager.toggleBookmark(index);
-        });
+    noteItem.querySelector(".bookmark-icon").addEventListener("click", () => {
+        NoteManager.toggleBookmark(index);
+    });
+
+    noteItem.querySelector(".delete-icon").addEventListener("click", () => {
+        NoteManager.deleteNote(index);
+    });
 
         noteList.appendChild(noteItem);
     });
@@ -270,5 +319,4 @@ document.querySelector(".prev-month").addEventListener("click", () => {calendar.
 
 document.querySelector(".search-input").addEventListener("input", searchNotes);
 
-// Tüm notları render et
 renderNotes();
