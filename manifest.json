@@ -2,10 +2,10 @@
     "name": "WALL - Take a Not",
     "short_name": "wall",
     "description": "Wall, is an open-source note manager to organize, discover and personalize your note experience.",
-    "start_url": "/",
+    "start_url": "index.html",
     "display": "standalone",
-    "background_color": "#000000",
-    "theme_color": "#ffffff",
+    "background_color": "#000",
+    "theme_color": "#000",
     "icons": [
       {
         "src": "assets/logo.png",
