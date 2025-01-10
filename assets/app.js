@@ -115,14 +115,12 @@ function searchInput(boolean) {
 
 function calendarView(boolean) {
     if (boolean == 1) {
-        document.getElementById("listView").style.display = "none";
         document.getElementById("addNoteInput").style.display = "none";
         document.getElementById("searchNoteInput").style.display = "none";
         document.getElementById("calanderView").style.display = "block";
     } else {
         document.getElementById("calanderView").style.display = "none";
         document.getElementById("addNoteInput").style.display = "block";
-        document.getElementById("listView").style.display = "block";
     }
 }
 
@@ -265,13 +263,22 @@ class Calendar {
             const dayElement = document.createElement("div");
             dayElement.className = "calendar-day";
             dayElement.dataset.date = day.date.toISOString().split("T")[0];
-            dayElement.innerHTML = `
-                <span>${day.date.getDate()}</span>
-                <div class="day-notes"></div>
-            `;
-            calendarBody.appendChild(dayElement);
 
-            this.renderDayNotes(dayElement, day.date);
+            const notesCount = this.getNotesCount(day.date);
+
+            if(notesCount > 0) {
+                dayElement.innerHTML = `
+                <span>${day.date.getDate()}</span>
+                <div class="day-notes-count">${notesCount}</div>
+            `;
+            } else {
+                dayElement.innerHTML = `
+                <span>${day.date.getDate()}</span>`;
+            }
+            
+
+            dayElement.addEventListener("click", () => this.showNotesForDay(day.date));
+            calendarBody.appendChild(dayElement);
         });
     }
 
@@ -283,23 +290,60 @@ class Calendar {
         return days;
     }
 
-    renderDayNotes(dayElement, date) {
+    getNotesCount(date) {
+        return NoteManager.getNotes().filter(note =>
+            new Date(note.date).toLocaleDateString() === date.toLocaleDateString()
+        ).length;
+    }
+
+    showNotesForDay(date) {
         const notes = NoteManager.getNotes().filter(note =>
             new Date(note.date).toLocaleDateString() === date.toLocaleDateString()
         );
-
-        const notesContainer = dayElement.querySelector(".day-notes");
-        notesContainer.innerHTML = "";
-
-        notes.forEach((note) => {
+    
+        const noteList = document.querySelector(".note-list");
+        noteList.innerHTML = ""; // Listeyi temizle
+    
+        notes.forEach((note, index) => {
             const noteItem = document.createElement("div");
             noteItem.className = "note-item";
+    
+            // Not içeriğini ve ikonları oluştur
             noteItem.innerHTML = `
-                <span>${note.content}</span>
+                <div class="note-content">
+                    <div class="note-text">
+                        <span>${NoteManager.convertLinks(note.content)}</span>
+                    </div>
+                </div>
+                <div class="note-date">
+                    <svg class="delete-icon" width="20" height="20" viewBox="0 0 24 24" stroke="#ff0000" stroke-width="2" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 7H21M16 7H8C8 6.07003 8 5.60504 8.10222 5.22354C8.37962 4.18827 9.18827 3.37962 10.2235 3.10222C10.605 3 11.07 3 12 3C12.93 3 13.395 3 13.7765 3.10222C14.8117 3.37962 15.6204 4.18827 15.8978 5.22354C16 5.60504 16 6.07003 16 7ZM6 7H18V16.2C18 17.8802 18 18.7202 17.673 19.362C17.3854 19.9265 16.9265 20.3854 16.362 20.673C15.7202 21 14.8802 21 13.2 21H10.8C9.11984 21 8.27976 21 7.63803 20.673C7.07354 20.3854 6.6146 19.9265 6.32698 19.362C6 18.7202 6 17.8802 6 16.2V7Z" />
+                    </svg>
+                    <svg class="bookmark-icon" width="20" height="20" viewBox="0 0 24 24" fill="${note.isBookmarked ? "currentColor" : "none"}" stroke="currentColor" stroke-width="2">
+                        <path d="M13.2 3H10.8C9.11984 3 8.27976 3 7.63803 3.32698C7.07354 3.6146 6.6146 4.07354 6.32698 4.63803C6 5.27976 6 6.11984 6 7.8V17.8C6 18.8299 6 19.3449 6.21264 19.6165C6.39769 19.8528 6.67912 19.9935 6.97921 19.9998C7.32406 20.007 7.73604 19.698 8.56 19.08L9.12 18.66C10.1528 17.8854 10.6692 17.4981 11.2363 17.3488C11.7369 17.2171 12.2631 17.2171 12.7637 17.3488C13.3308 17.4981 13.8472 17.8854 14.88 18.66L15.44 19.08C16.264 19.698 16.6759 20.007 17.0208 19.9998C17.3209 19.9935 17.6023 19.8528 17.7874 19.6165C18 19.3449 18 18.8299 18 17.8V7.8C18 6.11984 18 5.27976 17.673 4.63803C17.3854 4.07354 16.9265 3.6146 16.362 3.32698C15.7202 3 14.8802 3 13.2 3Z"></path>
+                    </svg>
+                    <span>${new Date(note.date).toLocaleDateString()}</span>
+                </div>
             `;
-            notesContainer.appendChild(noteItem);
+    
+            // Silme işlevi ekle
+            const deleteIcon = noteItem.querySelector(".delete-icon");
+            deleteIcon.addEventListener("click", () => {
+                NoteManager.deleteNote(index);
+                this.showNotesForDay(date); // Güncellenen listeyi göster
+            });
+    
+            // Yer işareti işlevi ekle
+            const bookmarkIcon = noteItem.querySelector(".bookmark-icon");
+            bookmarkIcon.addEventListener("click", () => {
+                note.isBookmarked = !note.isBookmarked;
+                this.showNotesForDay(date); // Güncellenen listeyi göster
+            });
+    
+            // Listeye ekle
+            noteList.appendChild(noteItem);
         });
-    }
+    }    
 
     nextMonth() {
         this.currentDate.setMonth(this.currentDate.getMonth() + 1);
